@@ -1,3 +1,4 @@
+using GestionReservas.CasosDeUso;
 using GestionReservas.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,6 +26,10 @@ builder.Services.AddDbContext<ReservaRepository>(mysqlBuilder =>
 {
     mysqlBuilder.UseMySQL(builder.Configuration.GetConnectionString("Connection1"));
 });
+
+builder.Services.AddScoped<IUpdateClienteUseCase, UpdateClienteUseCase>();
+builder.Services.AddScoped<IUpdateReservaUseCase, UpdateReservaUseCase>();
+builder.Services.AddScoped<IUpdateHabitacionUseCase, UpdateHabitacionUseCase>();
 
 var app = builder.Build();
 

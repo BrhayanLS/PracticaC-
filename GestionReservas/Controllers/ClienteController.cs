@@ -1,4 +1,5 @@
-﻿using GestionReservas.Dtos;
+﻿using GestionReservas.CasosDeUso;
+using GestionReservas.Dtos;
 using GestionReservas.Dtos.Create;
 using GestionReservas.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +11,12 @@ namespace GestionReservas.Controllers
     public class ClienteController
     {
         public readonly ClienteRepository _clienteRepository;
+        public readonly IUpdateClienteUseCase _updateClienteUseCase;
 
-        public ClienteController(ClienteRepository clienteRepository)
+        public ClienteController(ClienteRepository clienteRepository, IUpdateClienteUseCase updateClienteUseCase)
         {
             _clienteRepository = clienteRepository;
+            _updateClienteUseCase = updateClienteUseCase;
         }
 
         [HttpGet("{id}")]
@@ -47,6 +50,19 @@ namespace GestionReservas.Controllers
         {
             ClienteEntity result = await _clienteRepository.Add(cliente);
             return new CreatedResult($"/api/cliente/{result.IdCliente}", null);
+        }
+
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof (ClienteDto))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> UpdateCliente(ClienteDto cliente)
+        {
+            ClienteDto? result = await _updateClienteUseCase.Execute(cliente);
+            if(result == null)
+            {
+                return new NotFoundResult();
+            }
+            return new OkObjectResult(result);
         }
     }
 }

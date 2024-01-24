@@ -1,4 +1,5 @@
-﻿using GestionReservas.Dtos;
+﻿using GestionReservas.CasosDeUso;
+using GestionReservas.Dtos;
 using GestionReservas.Dtos.Create;
 using GestionReservas.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +11,12 @@ namespace GestionReservas.Controllers
     public class HabitacionesController : Controller
     {
         public readonly HabitacionRepository _habitacionRepository;
+        public readonly IUpdateHabitacionUseCase _habitacionUseCase;
 
-        public HabitacionesController(HabitacionRepository habitacionRepository)
+        public HabitacionesController(HabitacionRepository habitacionRepository, IUpdateHabitacionUseCase habitacionUseCase)
         {
             _habitacionRepository = habitacionRepository;
+            _habitacionUseCase = habitacionUseCase;
         }
 
         [HttpGet("{id}")]
@@ -46,6 +49,19 @@ namespace GestionReservas.Controllers
         {
             HabitacionEntity result = await _habitacionRepository.Add(habitacion);
             return new CreatedResult($"/api/habitacion/{result.IdHabitacion}", null);
+        }
+
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(HabitacionDto))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> UpdateHabitacion(HabitacionDto habitacion)
+        {
+            HabitacionDto? result = await _habitacionUseCase.Execute(habitacion);
+            if (habitacion == null)
+            {
+                return new NotFoundResult();
+            }
+            return new OkObjectResult(result);
         }
     }
 }

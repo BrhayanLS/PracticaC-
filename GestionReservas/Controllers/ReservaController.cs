@@ -1,4 +1,5 @@
-﻿using GestionReservas.Dtos;
+﻿using GestionReservas.CasosDeUso;
+using GestionReservas.Dtos;
 using GestionReservas.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +10,12 @@ namespace GestionReservas.Controllers
     public class ReservaController
     {
         public readonly ReservaRepository _reservaRepository;
+        public readonly IUpdateReservaUseCase _updateReservaUseCase;
 
-        public ReservaController(ReservaRepository reservaRepository)
+        public ReservaController(ReservaRepository reservaRepository, IUpdateReservaUseCase updateReservaUseCase)
         {
             _reservaRepository = reservaRepository;
+            _updateReservaUseCase = updateReservaUseCase;
         }
 
         [HttpGet("{id}")]
@@ -46,6 +49,19 @@ namespace GestionReservas.Controllers
         {
             ReservaEntity result = await _reservaRepository.Add(reserva);
             return new CreatedResult($"/api/reserva/{result.IdCliente}", null);
+        }
+
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ReservaDto))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> UpdateReserva(ReservaDto reserva)
+        {
+            ReservaDto? result = await _updateReservaUseCase.Execute(reserva);
+            if (result == null)
+            {
+                return new NotFoundResult();
+            }
+            return new OkObjectResult(result);
         }
     }
 }

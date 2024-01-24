@@ -57,3 +57,4 @@ C:\Users\brhay\Documents\Visual Studio 2022\Projects\GestionReservas\GestionRese
 C:\Users\brhay\Documents\Visual Studio 2022\Projects\GestionReservas\GestionReservas\obj\Debug\net8.0\GestionReservas.pdb
 C:\Users\brhay\Documents\Visual Studio 2022\Projects\GestionReservas\GestionReservas\obj\Debug\net8.0\GestionReservas.genruntimeconfig.cache
 C:\Users\brhay\Documents\Visual Studio 2022\Projects\GestionReservas\GestionReservas\obj\Debug\net8.0\ref\GestionReservas.dll
+C:\Users\brhay\Documents\Visual Studio 2022\Projects\GestionReservas\GestionReservas\obj\Debug\net8.0\GestionReservas.sourcelink.json

@@ -15,7 +15,6 @@ namespace GestionReservas.Repositories
 
         public async Task<HabitacionEntity> Get(int id)
         {
-            //return await Habitacion.LastOrDefaultAsync(x => x.idHabitacion == id);
             return await Habitacion.FirstOrDefaultAsync(x => x.IdHabitacion == id);
         }
 
@@ -45,6 +44,13 @@ namespace GestionReservas.Repositories
             await SaveChangesAsync();
             entity.IdHabitacion = response.Entity.IdHabitacion;
             return await Get(response.Entity.IdHabitacion ?? throw new Exception("No se ha podido guardar"));
+        }
+
+        public async Task<bool> Actualizar(HabitacionEntity habitacionEntity)
+        {
+            Habitacion.Update(habitacionEntity);
+            SaveChangesAsync();
+            return true;
         }
     }
 

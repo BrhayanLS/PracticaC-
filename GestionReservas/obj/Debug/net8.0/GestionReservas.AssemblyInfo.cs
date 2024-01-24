@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GestionReservas")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+85190636ae434137637e5cb30447975380de8d2c")]
 [assembly: System.Reflection.AssemblyProductAttribute("GestionReservas")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GestionReservas")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

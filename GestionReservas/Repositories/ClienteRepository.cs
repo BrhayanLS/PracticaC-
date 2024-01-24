@@ -45,6 +45,13 @@ namespace GestionReservas.Repositories
             await SaveChangesAsync();
             return await Get(response.Entity.IdCliente ?? throw new Exception("No se ha podido guardar"));
         }
+
+        public async Task<bool> Actualizar(ClienteEntity clienteEntity)
+        {
+            Cliente.Update(clienteEntity);
+            SaveChangesAsync();
+            return true;
+        }
     }
 
     public class ClienteEntity
